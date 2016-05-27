@@ -34,11 +34,13 @@ function startGame() {
 
         document.addEventListener('keydown', keyIsDown);
         document.addEventListener('keyup', keyIsUp);
+
+        $(".state").html("Connected ...<br>Watch the playScreen please");
     }
 
     webSocket.onclose = function(e) {
       console.log("close connection");
-
+      isConnecting = false;
     }
 
     webSocket.onmessage = function(e) {
@@ -47,11 +49,11 @@ function startGame() {
 
     webSocket.onerror = function(e) {
       console.log("error : " + e.data);
-      isConnecting = false;
+
     }
 
 
-    $(".state").html("Connected ...<br>Watch the playScreen please");
+
 
   }
 }
