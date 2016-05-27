@@ -3,6 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <title>Splash Screen Test</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+  <script src="test.js" charset="utf-8"></script>
+
   <style media="screen">
     html{
       box-sizing: border-box;
@@ -53,6 +57,9 @@
       vertical-align: top;
       margin: 0 15px;
     }
+    p.state{
+      color: #ff0000;
+    }
 
     input[type=text], input[type=color]{
       font-size: 1em;
@@ -63,12 +70,19 @@
   </style>
 </head>
 <body>
-  <h1>Splash Screen Game</h1>
+  <h1>GaraGameWeb</h1>
   <div class="left">
-    <input type="text" name="nickname" placeholder="Nickname"><br>
-    <input type="color" name="color" value="#ff0000"><br>
-    <input type="image" name="start" src="img/lineLight40.png">
-    <input type="image" name="pause" src="img/lineLight42.png">
+    <!-- <form class=""> -->
+      <input type="text" name="nickname" placeholder="Nickname"><br>
+      <input type="color" name="color" value="#ff0000"><br>
+      <input type="image" name="start" src="img/lineLight40.png" onclick="startGame()">
+      <input type="image" name="pause" src="img/lineLight42.png" onclick="stopGame()"><br>
+      <br>
+      <p class="state">
+        Disconnected
+      </p>
+    <!-- </form> -->
+
   </div>
   <div class="right">
 

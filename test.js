@@ -1,13 +1,41 @@
 var GaraWorldVersion = "v1.1"
 
-var webSocket = new WebSocket("ws://192.168.1.192:15445/");
+var webSocket;
+var isConnected;
 
-webSocket.onopen = function(e){
-      webSocket.send(GaraWorldVersion);
-  }
+// webSocket.readyState
+// 0 = the connection has not yet been established
+// 1 = the connection is established and communication is possible
+// 2 = the connection is going through the closing handshake
+// 3 = the connection has been closed or could not be opened
+// console.log(webSocket.readyState);
 
-document.addEventListener('keydown', keyIsDown);
-document.addEventListener('keyup', keyIsUp);
+
+function startGame() {
+  webSocket = new WebSocket("ws://192.168.1.192:15445/");
+
+  webSocket.onopen = function(e){
+        webSocket.send(GaraWorldVersion);
+
+    }
+
+  document.addEventListener('keydown', keyIsDown);
+  document.addEventListener('keyup', keyIsUp);
+
+  $(".state").html("Connected ...<br>Watch the playScreen please");
+
+}
+
+function stopGame() {
+
+    webSocket.close(1000);
+
+    document.removeEventListener('keydown', keyIsDown);
+    document.removeEventListener('keyup', keyIsUp);
+
+    $(".state").html("Disconnected");
+
+}
 
 function keyIsDown(e){
 
