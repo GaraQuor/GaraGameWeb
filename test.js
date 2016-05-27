@@ -26,7 +26,7 @@ function startGame() {
     console.log("opening server : " + nickname + "    " + color);
 
     webSocket.onopen = function(e){
-          // webSocket.send(GaraWorldVersion);
+        // webSocket.send(GaraWorldVersion);
         console.log("open connection");
 
         webSocket.send("2" + color);
@@ -38,7 +38,7 @@ function startGame() {
 
     webSocket.onclose = function(e) {
       console.log("close connection");
-      isConnecting = false;
+
     }
 
     webSocket.onmessage = function(e) {
@@ -64,7 +64,7 @@ function stopGame() {
 
     console.log("closing server");
 
-    // isConnecting = false;
+    isConnecting = false;
 
     webSocket.close(1000);
 
