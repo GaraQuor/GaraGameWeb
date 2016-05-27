@@ -3,23 +3,30 @@ var GaraWorldVersion = "v1.1"
 var webSocket;
 var isConnecting;
 
-// webSocket.readyState
+// webSocket.readyState  => va donner un int correspondant à l'état du server
 // 0 = the connection has not yet been established
 // 1 = the connection is established and communication is possible
 // 2 = the connection is going through the closing handshake
 // 3 = the connection has been closed or could not be opened
-// console.log(webSocket.readyState);
-
-
+//
+// webSocket.onopen = listener qui va vérifier quand le server ouvre la connection / est connecté
+// webSocket.onclose = listener qui va vérifier quand le server coupe la connection
+// webSocket.onmessage = listener qui va vérifier les messages sortant du server
+// webSocket.onopen = listener du serveur qui va vérifier les erreurs sortant du server
+//
 
 function startGame() {
-  // console.log("click start");
+
   if(!isConnecting){
     isConnecting = true;
+
+    $(".state").html("Connecting ...");
+
     webSocket = new WebSocket("ws://192.168.1.192:15445/");
 
     var color = document.getElementById('color').value;
-    var nickname
+    var nickname;
+
     if(document.getElementById('nickname').value) nickname = document.getElementById('nickname').value;
     else nickname = "guest";
 
@@ -40,6 +47,8 @@ function startGame() {
 
     webSocket.onclose = function(e) {
       console.log("close connection");
+      $(".state").html("Server closed");
+
       isConnecting = false;
     }
 
@@ -49,12 +58,7 @@ function startGame() {
 
     webSocket.onerror = function(e) {
       console.log("error : " + e.data);
-
     }
-
-
-
-
   }
 }
 
