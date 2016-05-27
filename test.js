@@ -1,7 +1,7 @@
 var GaraWorldVersion = "v1.1"
 
 var webSocket;
-var isConnected;
+var isConnecting;
 
 // webSocket.readyState
 // 0 = the connection has not yet been established
@@ -11,22 +11,60 @@ var isConnected;
 // console.log(webSocket.readyState);
 
 
+
 function startGame() {
-  webSocket = new WebSocket("ws://192.168.1.192:15445/");
+  // console.log("click start");
+  if(!isConnecting){
+    isConnecting = true;
+    webSocket = new WebSocket("ws://192.168.1.192:15445/");
 
-  webSocket.onopen = function(e){
-        webSocket.send(GaraWorldVersion);
+    var color = document.getElementById('color').value;
+    var nickname
+    if(document.getElementById('nickname').value) nickname = document.getElementById('nickname').value;
+    else nickname = "guest";
 
+    console.log("opening server : " + nickname + "    " + color);
+
+    webSocket.onopen = function(e){
+          // webSocket.send(GaraWorldVersion);
+        console.log("open connection");
+
+        webSocket.send("2" + color);
+        webSocket.send("3" + nickname);
+
+        document.addEventListener('keydown', keyIsDown);
+        document.addEventListener('keyup', keyIsUp);
     }
 
-  document.addEventListener('keydown', keyIsDown);
-  document.addEventListener('keyup', keyIsUp);
+    webSocket.onclose = function(e) {
+      console.log("close connection");
+      isConnecting = false;
+    }
 
-  $(".state").html("Connected ...<br>Watch the playScreen please");
+    webSocket.onmessage = function(e) {
+      console.log("message : " + e.data);
+    }
 
+    webSocket.onerror = function(e) {
+      console.log("error : " + e.data);
+      isConnecting = false;
+    }
+
+
+    $(".state").html("Connected ...<br>Watch the playScreen please");
+
+  }
 }
 
 function stopGame() {
+
+  console.log("servState : " + webSocket.readyState);
+
+  if(webSocket.readyState == 1){
+
+    console.log("closing server");
+
+    // isConnecting = false;
 
     webSocket.close(1000);
 
@@ -34,6 +72,9 @@ function stopGame() {
     document.removeEventListener('keyup', keyIsUp);
 
     $(".state").html("Disconnected");
+
+  }
+
 
 }
 

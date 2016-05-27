@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Splash Screen Test</title>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="jquery-1.12.4.min.js"></script>
 
   <script src="test.js" charset="utf-8"></script>
 
@@ -72,17 +72,14 @@
 <body>
   <h1>GaraGameWeb</h1>
   <div class="left">
-    <!-- <form class=""> -->
-      <input type="text" name="nickname" placeholder="Nickname"><br>
-      <input type="color" name="color" value="#ff0000"><br>
-      <input type="image" name="start" src="img/lineLight40.png" onclick="startGame()">
-      <input type="image" name="pause" src="img/lineLight42.png" onclick="stopGame()"><br>
+      <input type="text" name="nickname" id="nickname" placeholder="Nickname"><br>
+      <input type="color" name="color" id="color" value="#ff0000"><br>
+      <img  src="img/lineLight40.png" onclick="startGame()"/>
+      <img src="img/lineLight42.png" onclick="stopGame()"/><br>
       <br>
       <p class="state">
-        Disconnected
-      </p>
-    <!-- </form> -->
 
+      </p>
   </div>
   <div class="right">
 
