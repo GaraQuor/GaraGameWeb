@@ -16,7 +16,16 @@ function fnPreload() {
   // game.load.image('down', path + 'grey_sliderDown.png');
 }
 
-var gamepad, buttonA, buttonB, buttonS, score;
+var gamepad,
+    buttonA,
+    buttonB,
+    buttonS,
+    textScore,
+    score = {
+      label : 'Score : ',
+      value : 0
+    };
+
 
 function fnCreate() {
   game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
@@ -30,10 +39,8 @@ function fnCreate() {
   buttonS = game.add.button(game.width/2,game.height/2,'buttonS',butClick);
   buttonS.anchor.setTo(0.5, 0.5);
 
-  score = game.add.text(game.width/2, 50, 'Score : 150', {font: '64px Orbitron', fill: '#fff'} );
-  score.anchor.setTo(.5,.5);
-
-
+  textScore = game.add.text(game.width/2, 50, score.label + score.value, {font: '64px Orbitron', fill: '#fff'} );
+  textScore.anchor.setTo(.5,.5);
 
 
 }
@@ -44,4 +51,6 @@ function fnUpdate() {
 
 function butClick() {
   console.log("click");
+  score.value ++;
+  textScore.text = '' + score.label + score.value;
 }
