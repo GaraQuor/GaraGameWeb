@@ -1,4 +1,4 @@
-var game = new Phaser.Game(600, 400, Phaser.CANVAS, 'game', {preload: fnPreload, create: fnCreate, update: fnUpdate});
+var game = new Phaser.Game(640, 360, Phaser.CANVAS, 'game', {preload: fnPreload, create: fnCreate, update: fnUpdate});
 
 function fnPreload() {
   // On charge les assets du jeu ici
